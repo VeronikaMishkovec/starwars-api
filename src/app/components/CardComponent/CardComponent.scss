@@ -1,0 +1,20 @@
+.CardWrapper {
+  margin: 10px;
+  width: 45%;
+  padding: 10px;
+  border: 1px solid #b0c3c9;
+  border-radius: 3px;
+  display: grid;
+  grid-template-rows: repeat(3, 2fr);
+  grid-template-columns: 1fr 2fr 2fr;
+  grid-gap: 10px;
+
+  img {
+    width: 100%;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-row-end: 4;
+    grid-column-end: 2;
+    border-radius: 3px;
+  }
+}

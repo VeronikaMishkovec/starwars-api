@@ -1,0 +1,16 @@
+.NameWrapper {
+  border: 1px solid #b0c3c9;
+  border-radius: 3px;
+  padding: 5px;
+  color: #5d5e62;
+}
+.NameWrapper:not(:nth-child(1)) {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 40% 60%;
+  align-items: center;
+  h3 {
+    font-size: 16px;
+    margin: 0;
+  }
+}

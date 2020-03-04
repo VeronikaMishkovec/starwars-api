@@ -1,0 +1,11 @@
+.ListWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 50px;
+  .BtnWrapper {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
