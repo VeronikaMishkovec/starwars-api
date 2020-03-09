@@ -9,6 +9,7 @@ const App = () => {
     <>
       <h1>Star Wars</h1>
       <PeopleContainer />
+      
     </>
   );
 };
