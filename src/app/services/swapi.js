@@ -3,11 +3,11 @@ export const getPerson = async (item, id) => {
   return res.json().then(item);
 };
 
-export const getImage = (id) => {
-  return `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`
-}
+export const getImage = id => {
+  return `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`;
+};
 
-export const getPeople = async () => {
-  const res = await fetch(`https://swapi.co/api/people`);
+export const getPeople = async (url) => {
+  const res = await fetch(url);
   return await res.json();
 };

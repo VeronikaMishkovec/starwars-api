@@ -17,4 +17,10 @@
     grid-column-end: 2;
     border-radius: 3px;
   }
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px #c0978d;
+    transition: all 0.4s ease-in-out;
+  }
 }
