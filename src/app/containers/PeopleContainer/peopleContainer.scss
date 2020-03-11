@@ -3,9 +3,17 @@
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 50px;
+  height: 100%;
+
   .BtnWrapper {
     width: 200px;
     display: flex;
     justify-content: space-between;
   }
+}
+
+.spinner {
+  position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
 }
