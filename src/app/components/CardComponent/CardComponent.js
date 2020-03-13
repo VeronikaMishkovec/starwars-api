@@ -1,7 +1,6 @@
 import React from "react";
 import ItemInfo from "../ItemInfo/ItemInfo";
 
-
 import "../CardComponent/CardComponent.scss";
 
 const CardComponent = ({
@@ -13,7 +12,6 @@ const CardComponent = ({
   height,
   mass
 }) => {
-
   return (
     <div className="CardWrapper">
       <img src={imgSrc} />

@@ -1,0 +1,48 @@
+.InfoWrapper {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 1fr 1fr;
+  font-size: 20px;
+  grid-gap: 10px;
+
+  h3 {
+    font-size: 22px !important;
+  }
+
+  .person {
+    display: grid;
+    grid-template-columns: 200px repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 10px;
+
+    img {
+      width: 200px;
+      grid-column: 1 / 2;
+      grid-row: 1 / 4;
+    }
+  }
+
+  .homeworld {
+    display: grid;
+    grid-template-columns: 200px repeat(3, 1fr);
+    grid-template-rows: 2fr repeat(2, 3fr);
+    grid-gap: 10px;
+
+    .Head {
+      font-size: 24px;
+      margin: auto 0;
+      grid-column: 1 / 5;
+      grid-row: 1 / 2;
+    }
+
+    .planetImg {
+      width: 200px;
+      grid-column: 1 / 2;
+      grid-row: 2 / 4;
+    }
+  }
+}
+.Head {
+  font-size: 24px;
+  margin: auto 0;
+}
