@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Loader from "react-loader-spinner";
 import BlurOnIcon from "@material-ui/icons/BlurOn";
 import ItemInfo from "../../components/ItemInfo/ItemInfo";
+import FilmItem from "../../components/FilmCard/";
 
 import "./PersonInfo.scss";
 
@@ -11,22 +12,35 @@ const PersonInfo = ({ id }) => {
   const [info, setInfo] = useState({});
   const [planet, setPlanet] = useState();
   const [planetImg, setPlanetImg] = useState();
+  const [filmsList, setFilmsList] = useState([]);
 
   const getPerson = async id => {
-    setIsLoading(true);
-    const personImg = `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`;
-    const info = await (
-      await fetch(`https://swapi.co/api/people/${id}`)
-    ).json();
-    const planet = await (
-      await fetch(`https://swapi.co/api/planets/${id}`)
-    ).json();
-    const planetImg = `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`;
-    setInfo(info);
-    setPersonImg(personImg);
-    setPlanet(planet);
-    setPlanetImg(planetImg);
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      const personImg = `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`;
+      const info = await (
+        await fetch(`https://swapi.co/api/people/${id}`)
+      ).json();
+      const planet = await (
+        await fetch(`https://swapi.co/api/planets/${id}`)
+      ).json();
+      const planetImg = `https://starwars-visualguide.com/assets/img/planets/${id}.jpg`;
+      setInfo(info);
+      setPersonImg(personImg);
+      setPlanet(planet);
+      setPlanetImg(planetImg);
+      info.films.map(item => getFilms(item).then(res => {
+        setFilmsList(res)
+      }));
+    } catch (e) {
+      console.log('error', e)
+    } finally {
+      setIsLoading(false);
+    }    
+  };
+
+  const getFilms = async url => {
+    return await (await fetch(url)).json();
   };
 
   useEffect(() => {
@@ -35,7 +49,7 @@ const PersonInfo = ({ id }) => {
 
   return (
     <>
-      {console.log(id)}
+    {console.log(id)}
       {!isLoading ? (
         <div className="InfoWrapper">
           <div className="person">
@@ -63,7 +77,8 @@ const PersonInfo = ({ id }) => {
           </div>
           <div className="films">
             <div className="Head">Films</div>
-          </div>
+            {filmsList.title}
+          </div>          
         </div>
       ) : (
         <Loader
@@ -74,7 +89,6 @@ const PersonInfo = ({ id }) => {
           width={200}
         />
       )}
-      {/* <div>AAAAAAAAAAAAA</div> */}
     </>
   );
 };

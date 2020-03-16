@@ -7,6 +7,7 @@ const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
+        <Route path={"/"} component={PeopleContainer} exact />
         <Route
           exact
           path={"/person/:id?"}
@@ -15,7 +16,7 @@ const Routes = () => {
             return <PersonInfo id={match.params.id} />;
           }}
         />
-        <Route path={"/"} component={PeopleContainer} exact />
+        <Redirect to='/'/>
       </Switch>
     </BrowserRouter>
   );
