@@ -13,7 +13,6 @@ const Routes = () => {
           exact
           path={"/person/:id?"}
           render={({ match }) => {
-            console.log(match);
             return <PersonInfo id={match.params.id} />;
           }}
         />
