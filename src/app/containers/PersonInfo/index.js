@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Loader from "react-loader-spinner";
-import BlurOnIcon from "@material-ui/icons/BlurOn";
 import ItemInfo from "../../components/ItemInfo/ItemInfo";
-import FilmItem from "../../components/FilmCard/";
+import FilmItem from "../../components/FilmCard";
 
 import "./PersonInfo.scss";
 
@@ -13,6 +12,9 @@ const PersonInfo = ({ id }) => {
   const [planet, setPlanet] = useState();
   const [planetImg, setPlanetImg] = useState();
   const [filmsList, setFilmsList] = useState([]);
+  const [speciesList, setSpeciesList] = useState([]);
+  const [vehiclesList, setVehiclesList] = useState([]);
+  const [starshipsList, setStarshipsList] = useState([]);
 
   const getPerson = async id => {
     try {
@@ -29,14 +31,31 @@ const PersonInfo = ({ id }) => {
       setPersonImg(personImg);
       setPlanet(planet);
       setPlanetImg(planetImg);
-      info.films.map(item => getFilms(item).then(res => {
-        setFilmsList(res)
-      }));
+      setFilmsList(
+        await Promise.all(await info.films.map(item => getFilms(item))).then(
+          res => res
+        )
+      );
+      setSpeciesList(
+        await Promise.all(await info.species.map(item => getFilms(item))).then(
+          res => res
+        )
+      );
+      setVehiclesList(
+        await Promise.all(await info.vehicles.map(item => getFilms(item))).then(
+          res => res
+        )
+      );
+      setStarshipsList(
+        await Promise.all(await info.starships.map(item => getFilms(item))).then(
+          res => res
+        )
+      );
     } catch (e) {
-      console.log('error', e)
+      console.log("error", e);
     } finally {
       setIsLoading(false);
-    }    
+    }
   };
 
   const getFilms = async url => {
@@ -49,7 +68,6 @@ const PersonInfo = ({ id }) => {
 
   return (
     <>
-    {console.log(id)}
       {!isLoading ? (
         <div className="InfoWrapper">
           <div className="person">
@@ -77,8 +95,40 @@ const PersonInfo = ({ id }) => {
           </div>
           <div className="films">
             <div className="Head">Films</div>
-            {filmsList.title}
-          </div>          
+            <div className="filmsWrapper">
+              {filmsList.map(item => (
+                <FilmItem filmName={item.title} />
+              ))}
+            </div>
+          </div>
+          <div className="Species">
+            <div className="Head">Species</div>
+            <div className="speciesWrapper">
+              {speciesList.map(item => (
+                <FilmItem filmName={item.name} />
+              ))}
+            </div>
+          </div>
+          <div className="Vehicles">
+            <div className="Head">Vehicles</div>
+            <div className="vehiclesWrapper">
+              {vehiclesList.map(item => (
+                <FilmItem
+                  filmName={item.name}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="Starships">
+            <div className="Head">Starships</div>
+            <div className="starshipsWrapper">
+              {starshipsList.map(item => (
+                <FilmItem
+                  filmName={item.name}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       ) : (
         <Loader

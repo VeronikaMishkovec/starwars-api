@@ -41,6 +41,14 @@
       grid-row: 2 / 4;
     }
   }
+
+  .filmsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 15px;
+  }
 }
 .Head {
   font-size: 24px;
