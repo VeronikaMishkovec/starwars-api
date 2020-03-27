@@ -12,6 +12,9 @@ const PeopleContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [next, setNext] = useState("");
   const [prev, setPrev] = useState("");
+  const [memoUrl, setMemoUrl] = useState();
+
+  const session = sessionStorage.getItem("url")
 
   const peopleList = async url => {
     setIsLoading(true);
@@ -19,16 +22,24 @@ const PeopleContainer = () => {
     setPeople(data.results);
     setNext(data.next);
     setPrev(data.previous);
+    console.log(memoUrl);
     setIsLoading(false);
+    // setMemoUrl(url);
+    // setMemoUrl(sessionStorage.getItem("url"));
+    // console.log(memoUrl)
+    // sessionStorage.setItem('url', url)
   };
 
   useEffect(() => {
-    peopleList("https://swapi.co/api/people");
+    if (session) {
+      peopleList(session);
+    } else {
+      peopleList("https://swapi.co/api/people");
+    }
   }, []);
 
   return (
     <>
-    {console.log('rsfetgeryhthyd')}
       {!isLoading ? (
         <div className="ListWrapper">
           {people.map((person, idx) => {
@@ -52,7 +63,10 @@ const PeopleContainer = () => {
               variant="contained"
               color="primary"
               disabled={!prev}
-              onClick={() => peopleList(prev)}
+              onClick={() => {
+                peopleList(prev);
+                sessionStorage.setItem("url", prev);
+              }}
             >
               Prev
             </Button>
@@ -60,7 +74,10 @@ const PeopleContainer = () => {
               variant="contained"
               color="primary"
               disabled={!next}
-              onClick={() => peopleList(next)}
+              onClick={() => {
+                sessionStorage.setItem("url", next);
+                peopleList(next);
+              }}
             >
               Next
             </Button>
@@ -68,7 +85,6 @@ const PeopleContainer = () => {
         </div>
       ) : (
         <Loader
-          // key={idx}
           className="spinner"
           type="ThreeDots"
           color="#972426"

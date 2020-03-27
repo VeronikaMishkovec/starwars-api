@@ -47,9 +47,9 @@ const PersonInfo = ({ id }) => {
         )
       );
       setStarshipsList(
-        await Promise.all(await info.starships.map(item => getFilms(item))).then(
-          res => res
-        )
+        await Promise.all(
+          await info.starships.map(item => getFilms(item))
+        ).then(res => res)
       );
     } catch (e) {
       console.log("error", e);
@@ -71,7 +71,7 @@ const PersonInfo = ({ id }) => {
       {!isLoading ? (
         <div className="InfoWrapper">
           <div className="person">
-            <img src={personImg} />
+            <img src={personImg} alt="" />
             <ItemInfo head="Name" parametr={info.name} />
             <ItemInfo head="Height" parametr={info.height} />
             <ItemInfo head="Mass" parametr={info.mass} />
@@ -113,9 +113,7 @@ const PersonInfo = ({ id }) => {
             <div className="Head">Vehicles</div>
             <div className="vehiclesWrapper">
               {vehiclesList.map(item => (
-                <FilmItem
-                  filmName={item.name}
-                />
+                <FilmItem filmName={item.name} />
               ))}
             </div>
           </div>
@@ -123,9 +121,7 @@ const PersonInfo = ({ id }) => {
             <div className="Head">Starships</div>
             <div className="starshipsWrapper">
               {starshipsList.map(item => (
-                <FilmItem
-                  filmName={item.name}
-                />
+                <FilmItem filmName={item.name} />
               ))}
             </div>
           </div>
