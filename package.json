@@ -30,8 +30,10 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.9.4",
+    "@material-ui/icons": "^4.9.1",
     "antd": "^4.0.0",
     "module-alias": "^2.2.2",
-    "react-loader-spinner": "^3.1.5"
+    "react-loader-spinner": "^3.1.5",
+    "react-router-dom": "^5.1.2"
   }
 }

@@ -1,3 +1,5 @@
+export const _apiBase = 'https://swapi.co/api';
+
 export const getPerson = async (item, id) => {
   const res = await fetch(`https://swapi.co/api/people/${id}`);
   return res.json().then(item);

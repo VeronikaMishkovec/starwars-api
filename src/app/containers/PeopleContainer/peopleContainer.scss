@@ -17,3 +17,15 @@
   top: calc(50% - 100px);
   left: calc(50% - 100px);
 }
+
+a {
+  display: flex;
+  width: 50%;
+  text-decoration: none;
+  
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px #c0978d;
+    transition: all 0.4s ease-in-out;
+  }
+}

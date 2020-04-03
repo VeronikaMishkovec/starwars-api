@@ -3,6 +3,7 @@ import CardComponent from "../../components/CardComponent/CardComponent";
 import { getImage } from "../../services/swapi";
 import Button from "@material-ui/core/Button";
 import Loader from "react-loader-spinner";
+import { withRouter, Link } from "react-router-dom";
 
 import "./PeopleContainer.scss";
 
@@ -11,6 +12,9 @@ const PeopleContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [next, setNext] = useState("");
   const [prev, setPrev] = useState("");
+  const [memoUrl, setMemoUrl] = useState();
+
+  const session = sessionStorage.getItem("url")
 
   const peopleList = async url => {
     setIsLoading(true);
@@ -18,11 +22,20 @@ const PeopleContainer = () => {
     setPeople(data.results);
     setNext(data.next);
     setPrev(data.previous);
+    console.log(memoUrl);
     setIsLoading(false);
+    // setMemoUrl(url);
+    // setMemoUrl(sessionStorage.getItem("url"));
+    // console.log(memoUrl)
+    // sessionStorage.setItem('url', url)
   };
 
   useEffect(() => {
-    peopleList("https://swapi.co/api/people");
+    if (session) {
+      peopleList(session);
+    } else {
+      peopleList("https://swapi.co/api/people");
+    }
   }, []);
 
   return (
@@ -31,16 +44,18 @@ const PeopleContainer = () => {
         <div className="ListWrapper">
           {people.map((person, idx) => {
             return (
-              <CardComponent
-                imgSrc={getImage(person.url.slice(-3, -1))}
-                name={person.name}
-                gender={person.gender}
-                birth_year={person.birth_year}
-                eye_color={person.eye_color}
-                height={person.height}
-                mass={person.mass}
-                // key={idx}
-              />
+              <Link to={`/person/${person.url.match(/\/([0-9]*)\/$/)[1]}`}>
+                <CardComponent
+                  imgSrc={getImage(person.url.match(/\/([0-9]*)\/$/)[1])}
+                  name={person.name}
+                  gender={person.gender}
+                  birth_year={person.birth_year}
+                  eye_color={person.eye_color}
+                  height={person.height}
+                  mass={person.mass}
+                  key={idx}
+                />
+              </Link>
             );
           })}
           <div className="BtnWrapper">
@@ -48,7 +63,10 @@ const PeopleContainer = () => {
               variant="contained"
               color="primary"
               disabled={!prev}
-              onClick={() => peopleList(prev)}
+              onClick={() => {
+                peopleList(prev);
+                sessionStorage.setItem("url", prev);
+              }}
             >
               Prev
             </Button>
@@ -56,7 +74,10 @@ const PeopleContainer = () => {
               variant="contained"
               color="primary"
               disabled={!next}
-              onClick={() => peopleList(next)}
+              onClick={() => {
+                sessionStorage.setItem("url", next);
+                peopleList(next);
+              }}
             >
               Next
             </Button>
@@ -64,17 +85,15 @@ const PeopleContainer = () => {
         </div>
       ) : (
         <Loader
-          // key={idx}
           className="spinner"
           type="ThreeDots"
           color="#972426"
           height={200}
           width={200}
-          timeout={3000} //3 secs
         />
       )}
     </>
   );
 };
 
-export default PeopleContainer;
+export default withRouter(PeopleContainer);

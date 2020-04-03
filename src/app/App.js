@@ -1,15 +1,12 @@
 import React from "react";
-import PeopleContainer from "./containers/PeopleContainer/peopleContainer";
-
-
-import "../style/app.scss";
+import Routes from "../routes/routes";
+import '../style/app.scss';
 
 const App = () => {
   return (
     <>
-      <h1>Star Wars</h1>
-      <PeopleContainer />
-      
+      <h1>StarWars</h1>
+      <Routes />
     </>
   );
 };
